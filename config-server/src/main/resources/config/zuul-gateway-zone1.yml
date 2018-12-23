@@ -1,0 +1,36 @@
+server:
+  port: 10001
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000
+eureka:
+  instance:
+    metadataMap.zone: zone1
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    region: region-east
+    service-url:
+      zone1: http://localhost:8761/eureka/,http://localhost:8762/eureka/
+      zone2: http://localhost:8763/eureka/,http://localhost:8764/eureka/
+    availability-zones:
+      region-east: zone1,zone2
+#zuul:
+#  routes:
+#    feign-client:
+#      path: /feign-client/**
+#      serviceId: feign-client
+#    hello:
+#      path: /hello/**
+#      url: forward:/hello
+# 脱离eureka，使zuul与ribbon结合完成负载均衡路由
+ribbon:
+  eureka:
+    enabled: false
+feign-client:
+  ribbon:
+    NIWSServerListClassname: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NFLoadBalancerRuleClassname: com.netflix.loadbalancer.RandomRule
+    listOfServers: localhost:8010,localhost:8011

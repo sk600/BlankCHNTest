@@ -1,0 +1,23 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  data:
+    mongodb:
+      host: localhost
+      database: huang
+      port: 27017
+server:
+  port: 11001

@@ -1,0 +1,21 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: client
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000
+eureka:
+  instance:
+    metadataMap.zone: zone1 #填入元数据
+  client:
+    register-with-eureka: true #是否优先将实例注册到eureka中
+    fetch-registry: true #是否向服务注册中心注册自己
+    region: region-east #所在区域
+    service-url: #eureka server zone的配置
+      zone1: http://localhost:8761/eureka/,http://localhost:8762/eureka/
+      zone2: http://localhost:8763/eureka/,http://localhost:8764/eureka/
+    availability-zones:
+      region-east: zone1,zone2

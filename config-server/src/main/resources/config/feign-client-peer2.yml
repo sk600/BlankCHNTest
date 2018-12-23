@@ -1,0 +1,41 @@
+feign:
+  compression:
+    response:
+      enabled: true
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: true
+server:
+  port: 8011
+spring:
+  application:
+    name: feign-client
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+data-provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    ConnectTimeout: 3000
+    ReadTimeout: 60000
+    MaxAutoRetries: 1 #对第一次请求的服务的重试次数
+    MaxAutoRetriesNextServer: 1 #要重试的下一个服务的最大数量（不包括第一个服务）
+    OkToRetryOnAllOperations: true
+circuitBreaker:
+  requestVolumeThreshold: 1
+  errorThresholdPercentage: 100

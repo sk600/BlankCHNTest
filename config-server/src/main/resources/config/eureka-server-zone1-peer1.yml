@@ -1,0 +1,26 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka-server
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000
+eureka:
+  instance:
+    hostname: zone1-peer1
+    preferIpAddress: false #是否优先使用ip替换hostname
+    metadataMap.zone: zone1
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    region: region-east
+    service-url:
+      zone1: http://zone1-peer1:8761/eureka/,http://zone1-peer2:8762/eureka/
+      zone2: http://localhost:8763/eureka/,http://localhost:8764/eureka/
+    availability-zones:
+      region-east: zone1,zone2
+  server:
+    waitTimeInMsWhenSyncEmpty: 0 #eureka获取不到其他eureka的数据时，等待的时间
+    enableSelfPreservation: false #是否开启自我保护

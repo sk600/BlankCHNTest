@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: zuul-gateway
+  cloud:
+    config:
+      uri: http://localhost:8888
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: huang
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+eureka:
+  client:
+    eureka-service-url-poll-interval-seconds: 10 #默认为300秒，这里为了验证改为10秒
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+zuul:
+  prefix: /pre #前缀
+  strip-prefix: true # 是否关闭前缀，否的话路由时不去除prefix
+  routes:
+    feign-client:
+      path: /feign-client/**
+      serviceId: feign-client
+      sensitiveHeaders: lalala
+    hello:
+      path: /hi/**
+      url: forward:/hello # 本地路由
+
